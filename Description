@@ -1,0 +1,40 @@
+C SHELL DEVELOPED BY COLLINS AND HUMPHREY
+
+a)How it works
+
+1. print a prompt - only when in non interactive mode
+2. Wait and get commands - use getline(check getline man page)
+3. tokenize the command using strtok;
+   - store the tokens into an array of strings
+     using strcpy;
+4. the first argument in the array should be the command and other "the arguments of command"
+
+5. Check if the command exists in path using "stat function - see stat man page"
+   - if it doesn't exist check if it's a built in command
+   - check if it's an alias
+   - if it is neither print error to stderr - do not use perror
+
+6. if the file of command exists in path fork
+
+  - execute the command in child process;
+  
+  if the command is builtin do not fork 
+  
+  - example: cd, rm, env;
+
+  -  create a function that works exactly like the builtin commands
+  - function for cd and env especially
+
+7. free all memory - check using valgrind.
+
+b) IMPORTANT POINTS TO CONSIDER
+
+1. Dynamic allocation of memory
+2. How to create an array of strings
+3. Understanding how memory is allocated in getline
+4. freeing of memory -- check for double 2cache error
+5. if the input is space "       " how do we handle that
+6. Print error to STDERR - should be exactly like bash
+7. ISATTY function - to handle Non-interactive and INteractive mode
+
+"Collins and Humphrey - The Fantastic X"
