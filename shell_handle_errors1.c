@@ -22,6 +22,10 @@ int numb_atoi_err(char *s)
 			if (result > INT_MAX)
 				return (-1);
 		}
+		else if (s[i] < '0')
+		{
+			return (-2);
+		}
 		else
 			return (-1);
 	}

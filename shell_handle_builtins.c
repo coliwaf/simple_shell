@@ -8,18 +8,32 @@
  */
 int handle_exiting(data_s *data)
 {
-	int chk_exit;
+	int chk_exit, i = 0;
 
 	if (data->argv[1])
 	{
-		chk_exit = numb_atoi_err(data->argv[1]);
-		if (chk_exit == -1)
+		while (data->argv[1][i])
 		{
-			data->status = 2;
-			print_error(data, "Illegal integer: ");
-			err_puts(data->argv[1]);
-			err_putchar('\n');
-			return (1);
+			if (_isalpha(data->argv[1][i++]) != 0)
+			{
+				data->status = 2;
+				print_error(data, "Illegal number: ");
+				err_puts(data->argv[1]);
+				err_putchar('\n');
+				return (1);
+			}
+			else
+			{
+				chk_exit = numb_atoi_err(data->argv[1]);
+				if (chk_exit == -1 || chk_exit == -2)
+				{
+					data->status = 2;
+					print_error(data, "Illegal number: ");
+					err_puts(data->argv[1]);
+					err_putchar('\n');
+					return (1);
+				}
+			}
 		}
 
 		data->err_code = numb_atoi_err(data->argv[1]);
@@ -27,7 +41,6 @@ int handle_exiting(data_s *data)
 	}
 
 	data->err_code = -1;
-
 	return (-2);
 }
 
